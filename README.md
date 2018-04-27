@@ -1,12 +1,19 @@
 # REX
 
-Ever wanted to play the stock market? Come on, it's 21st century. Time to teach the bot to play for you.
+So, you want to play the stock market? Come on, it's 21st century... Time to teach the machine to play for you.
 
-REX is an OpenAI Gym environment that simulates a cryptocurrency exchange in multi-agent setting. It comes with preprogrammed bots that trade according to simple strategies (MACD, RSI) - these can be used to simulate the behavior of other market participants (which your model should counter-trade). REX is different in the following ways:
+REX is an OpenAI Gym environment that simulates a cryptocurrency exchange in multi-agent setting. It comes with preprogrammed bots that imitate the behavior of other market participants. Compared to a traditional backtesting environment, REX is better in the following ways:
 
-1. **State** is a sequence of raw trades (not candles). You can, of course, roll trades into candles, but this way you'll lose valuable information (e.g. there was a huge volume spike - was that a "buy" or a "sell"? Who's got the FOMO: buyers or sellers?). Raw trades, by definition, are lossless - they provide complete information about the market.
-1. **Action** is a float that represents "percentage offset from midpoint between bid & ask". For example, if bid = 8000.0, ask = 8010.0, an action of 0.01 would result in a placement of a sell order at 8005.8005 (`(8010.0 + 8000.0) / 2 + 0.01% = 8005.8005`). And yes, the action of 0.0 is heavily penalized. Your bot should always have an order in the market - even if it's some stink bid to catch fat-finger dumps.
+1. REX simulates slippage & spread by maintaining a full orderbook.
+1. REX simulates API delays by sending data to agents & executing their orders in batch.
+1. REX simulates change of market conditions by training multiple agents simultaneously. 
 
+As a reinforcement learning environment, REX uses the following definitions:
+
+1. **State** is a tuple of current position size + sequence of raw trades (not candles). You can, of course, roll trades into candles, but this way you'll lose valuable information (e.g. there was a huge volume spike - was that a "buy" or a "sell"? Who's got the FOMO: buyers or sellers?). Raw trades, by definition, are lossless - they provide complete information about the market.
+1. **Action** is a single order (two floats for "price offset" and "amount"). "Price offset" represents "percentage offset from midpoint between bid & ask". For example, if bid = 8000.0, ask = 8010.0, an action of 0.01 would result in a placement of a sell order at 8005.8005 (`(8010.0 + 8000.0) / 2 + 0.01% = 8005.8005`). And yes, your agent should always produce an action to keep an order in the market - even if it's a stink bid to catch fat-finger dumps.
+
+For simplicity, we recommend setting "amount" to constant and focusing on "price offset". If you decide to operate in the market using a different amount, you'd better retrain the agent, since the order size influences the behavior of market participants (large bids move the price up without being filled).
 
 ## Philosophy
 

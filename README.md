@@ -19,7 +19,7 @@ The agent can also "short" (borrow an asset and sell it in anticipation of a pri
 ## Recommendations
 
 * Try to set "amount" to constant and focus on "price". If you decide to operate in the market using a different amount, you'd better retrain the agent, since the order size influences the behavior of market participants (large bids move the price up without being filled).
-* Try to produce "price offset" instead of "price". "Price offset" represents "percentage offset from midpoint between bid & ask". For example, if bid = 8000.0, ask = 8010.0, an action of 0.01 would result in a placement of a sell order at 8005.8005 (`(8010.0 + 8000.0) / 2 + 0.01% = 8005.8005`).
+* Try to train the agent to produce "price offset", then convert it to "price" separately. "Price offset" is a "percentage offset from midpoint between bid & ask" (for example, if bid = 8000.0, ask = 8010.0, an action of 0.01 would result in a placement of a sell order at 8005.8005 - `(8010.0 + 8000.0) / 2 + 0.01% = 8005.8005`). If the agent is trained to produce "price offset", it'll have an easier time adapting to another market with different prices but similar mechanics (e.g. BITTREX:BTC:SC and BITTREX:BTC:DGB).
 * Try to train a single agent for a single market: the winning strategies for distinct markets may be vastly different (for example, some altcoins can't be shorted, so the agent can sell only after buying)
 
 ## Philosophy

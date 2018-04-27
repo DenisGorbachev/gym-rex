@@ -20,3 +20,11 @@ We believe that:
 
 Therefore, developing profitable trading algorithms is the best way to advance computer science.
 
+## Contributing
+
+1. Clone this repository.
+1. [Install Conda](https://conda.io/docs/user-guide/install/index.html).
+1. `conda env create -f environment.yml`
+1. `source activate gym-rex`
+1. `pip install -r requirements.txt`
+1. `python examples/macd.py # make sure it works`

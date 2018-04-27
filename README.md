@@ -1,6 +1,6 @@
 # REX
 
-The market can be viewed as a "game": it provides "rewards" for "actions" depending on current "state". As such, it's a perfect playground for reinforcement learning models. However, to train a profitable model, you need a realistic environment.
+Ever wanted to play the stock market? Come on, it's 21st century. Time to teach the bot to play for you.
 
 REX is an OpenAI Gym environment that simulates a cryptocurrency exchange in multi-agent setting. It comes with preprogrammed bots that trade according to simple strategies (MACD, RSI) - these can be used to simulate the behavior of other market participants (which your model should counter-trade). REX is different in the following ways:
 
